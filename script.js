@@ -39,3 +39,27 @@ window.addEventListener("scroll", () => {
 function toggleTheme() {
   document.body.classList.toggle("light-mode");
 }
+
+// ✅ === Contact Form Submission ===
+const form = document.querySelector('.contact-form');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = form.querySelector('input[type="text"]').value;
+  const email = form.querySelector('input[type="email"]').value;
+  const message = form.querySelector('textarea').value;
+
+  const response = await fetch("https://script.google.com/macros/s/AKfycbzPRj8UnZd5RnSIA_a32rHAB_i6kp7XTujkTKkThj3oQJThnhub7QcFUmQ77tROQCD9/exec", {
+    method: "POST",
+    body: new FormData(form),
+  });
+
+  if (response.ok) {
+    alert("Message sent successfully ✅");
+    form.reset(); // clear the form
+  } else {
+    alert("Failed to send message ❌. Please try again.");
+  }
+});
+
